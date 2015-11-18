@@ -17,15 +17,9 @@ p {
   text-align: justify;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .button-inline {
     margin-top: 20px;
-  }
-}
-
-@media (max-width: 992px) {
-  .button-marginb-10 {
-    margin-bottom: 10px;
   }
 }
 

@@ -1,4 +1,4 @@
-app.controller('GeradorContratoCtrl', function($scope, prestadorAPI){
+angular.module("GeradorContrato").controller('GeradorContratoCtrl', function($scope, prestadorAPI){
 	// Controle de divs e inputs especificos
 	var pessoaFisica = {modo: 'fisica', descricao: 'Modo Pessoa Física'};
 	var pessoaJuridica = {modo: 'juridica', descricao: 'Modo Pessoa Jurídica'};

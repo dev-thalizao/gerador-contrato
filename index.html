@@ -29,13 +29,13 @@
 				</div>
 
 				<div id="pessoaFisica" ng-show="tipoPessoa.modo == 'fisica'">
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							RG <input name="rg" class="form-control" type="text" ng-model="formModel.rg">
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							CPF <input name="cpf" class="form-control" type="text" ng-model="formModel.cpf">
 						</div>
@@ -43,88 +43,88 @@
 				</div>
 
 				<div id="pessoaJuridica" ng-show="tipoPessoa.modo == 'juridica'">
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							CNPJ <input name="cnpj" class="form-control" type="text" ng-model="formModel.cnpj">
 						</div>
 					</div>
 
-					<div class="col-md-6">
+					<div class="col-md-6 col-sm-6">
 						<div class="form-group">
 							Inscrição Estadual <input name="cpf" class="form-control" type="text" ng-model="formModel.inscEst">
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-10">
+				<div class="col-md-10 col-sm-10">
 					<div class="form-group">
 						Logradouro <input name="rua" class="form-control" type="text" ng-model="formModel.endereco.logradouro">
 					</div>
 				</div>
 
-				<div class="col-md-2">
+				<div class="col-md-2 col-sm-2">
 					<div class="form-group">
 						Número <input name="numero" class="form-control" type="text" ng-model="formModel.endereco.numero">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Bairro <input name="bairro" class="form-control" type="text" ng-model="formModel.endereco.bairro">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Cidade <input name="cidade" class="form-control" type="text" ng-model="formModel.endereco.cidade">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Telefone <input name="telefone" class="form-control" type="text" ng-model="formModel.telefone">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Data do Evento <input name="dataEvento" class="form-control" type="date" ng-model="formModel.dataEvento" value="{{ dataAtual | date: 'yyyy-MM-dd' }}">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Valor <input name="valor" class="form-control" type="number" ng-model="formModel.valor">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Multa por Destruição <input name="multaDestruicao" class="form-control" type="number" ng-model="formModel.multaDestruicao">
 					</div>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
 						Lista de Serviços <input class="form-control" type="text" ng-model="novoServico.descricao" ng-keydown="bindEnterAdicionarServico(novoServico, $event)">
 					</div>
 				</div>
 
-				<div class="col-md-2">
-					<button type="button" class="btn btn-primary button-inline button-marginb-10" ng-click="adicionarServico(novoServico)">Adicionar</button>
+				<div class="col-md-2 col-sm-2">
+					<button type="button" class="btn btn-primary button-inline" ng-click="adicionarServico(novoServico)">Adicionar</button>
 				</div>
 
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-4">
 					<div class="form-group">
-						Remover Serviços Selecionados
+						Remover Serviços
 						<select ng-model="removeServico" class="form-control" ng-options="servico.descricao for servico in formModel.servicos">
 							<option value="">Selecione o serviço a ser removido</option>
 						</select>
 					</div>
 				</div>
 
-				<div class="col-md-2">
-					<button type="button" class="btn btn-danger button-inline button-marginb-10" ng-click="removerServico(removeServico, formModel.servicos)">Remover</button>
+				<div class="col-md-2 col-sm-2">
+					<button type="button" class="btn btn-danger button-inline" ng-click="removerServico(removeServico, formModel.servicos)">Remover</button>
 				</div>
 
 				<div class="clearfix"></div>
