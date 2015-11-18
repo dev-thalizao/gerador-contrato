@@ -1,0 +1,6 @@
+lib/
+node_modules/
+bower_components/
+test/
+tests/
+js/value/configValueRF.js

@@ -1,0 +1,54 @@
+.dados {
+  border-bottom: 1px solid black;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+p {
+  font-size: 18px;
+}
+
+#titulo {
+  margin: 20px;
+  text-align: center;
+}
+
+#infoIniciais {
+  text-align: justify;
+}
+
+@media (min-width: 992px) {
+  .button-inline {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 992px) {
+  .button-marginb-10 {
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 800px){
+  #documentoFinal {
+    margin: 30px;
+  }
+}
+
+@media print {
+    .myDivToPrint {
+        /*background-color: white;
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 15px;
+        font-size: 14px;
+        line-height: 18px;*/
+    }
+    .myDivNotPrint {
+      display: none;
+    }
+}

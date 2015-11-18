@@ -1,0 +1,26 @@
+{
+  "name": "contrato-mae",
+  "version": "1.0.0",
+  "authors": [
+    "Thales Frigo <thalesfrigo@gmail.com>"
+  ],
+  "description": "Gerador de contrato de serviço",
+  "main": "",
+  "moduleType": [],
+  "keywords": [
+    "angularjs"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "angular-locale-pt-br": "~1.3.15"
+  }
+}

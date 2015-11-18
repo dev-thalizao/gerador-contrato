@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html ng-app="GeradorContrato">
+<head>
+	<meta charset="utf-8">
+	<title>Contrato de Prestação de Serviços</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body ng-controller="GeradorContratoCtrl">
+	<div class="row">
+		<div class="container myDivNotPrint">
+			<div class="col-md-offset-3 col-md-7">
+				<h2>Dados que serão exibidos no contrato:</h2>
+			</div>
+			
+			<div class="col-md-2">
+				<button id="mudaTipoPessoa" class="btn btn-warning button-inline" ng-click="mudarTipoPessoa(tipoPessoa)">
+					{{ tipoPessoa.descricao }}
+				</button>
+			</div>
+
+			<div class="clearfix"></div>
+			<hr>
+			<form class="col-md-12">
+				<div class="col-md-12">
+					<div class="form-group">
+						Nome <input name="nome" class="form-control" type="text" ng-model="formModel.nome">
+					</div>
+				</div>
+
+				<div id="pessoaFisica" ng-show="tipoPessoa.modo == 'fisica'">
+					<div class="col-md-6">
+						<div class="form-group">
+							RG <input name="rg" class="form-control" type="text" ng-model="formModel.rg">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							CPF <input name="cpf" class="form-control" type="text" ng-model="formModel.cpf">
+						</div>
+					</div>
+				</div>
+
+				<div id="pessoaJuridica" ng-show="tipoPessoa.modo == 'juridica'">
+					<div class="col-md-6">
+						<div class="form-group">
+							CNPJ <input name="cnpj" class="form-control" type="text" ng-model="formModel.cnpj">
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							Inscrição Estadual <input name="cpf" class="form-control" type="text" ng-model="formModel.inscEst">
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-10">
+					<div class="form-group">
+						Logradouro <input name="rua" class="form-control" type="text" ng-model="formModel.endereco.logradouro">
+					</div>
+				</div>
+
+				<div class="col-md-2">
+					<div class="form-group">
+						Número <input name="numero" class="form-control" type="text" ng-model="formModel.endereco.numero">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Bairro <input name="bairro" class="form-control" type="text" ng-model="formModel.endereco.bairro">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Cidade <input name="cidade" class="form-control" type="text" ng-model="formModel.endereco.cidade">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Telefone <input name="telefone" class="form-control" type="text" ng-model="formModel.telefone">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Data do Evento <input name="dataEvento" class="form-control" type="date" ng-model="formModel.dataEvento" value="{{ dataAtual | date: 'yyyy-MM-dd' }}">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Valor <input name="valor" class="form-control" type="number" ng-model="formModel.valor">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Multa por Destruição <input name="multaDestruicao" class="form-control" type="number" ng-model="formModel.multaDestruicao">
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Lista de Serviços <input class="form-control" type="text" ng-model="novoServico.descricao" ng-keydown="bindEnterAdicionarServico(novoServico, $event)">
+					</div>
+				</div>
+
+				<div class="col-md-2">
+					<button type="button" class="btn btn-primary button-inline button-marginb-10" ng-click="adicionarServico(novoServico)">Adicionar</button>
+				</div>
+
+				<div class="col-md-4">
+					<div class="form-group">
+						Remover Serviços Selecionados
+						<select ng-model="removeServico" class="form-control" ng-options="servico.descricao for servico in formModel.servicos">
+							<option value="">Selecione o serviço a ser removido</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="col-md-2">
+					<button type="button" class="btn btn-danger button-inline button-marginb-10" ng-click="removerServico(removeServico, formModel.servicos)">Remover</button>
+				</div>
+
+				<div class="clearfix"></div>
+				<div class="col-md-12">
+					<div class="form-group">
+						<!-- <pre>{{ formModel | json }}</pre> -->
+					</div>
+				</div>
+				<div class="col-md-12">
+					<button type="button" class="btn btn-success btn-block btn-lg" onclick="window.print()">Imprimir!</button>
+				</div>
+			</form>
+		</div>
+
+		<div id="documentoFinal" class="container myDivToPrint">
+			<h2 id="titulo">CONTRATO DE PRESTAÇÃO DE SERVIÇO</h2>
+
+			<p id="infoIniciais">
+			Pelo presente instrumento de contrato de serviço, de um lado, a contratada “{{ prestador.nome }}”, portadora do CNPJ: {{  prestador.cnpj }} / Insc. Est.: {{ prestador.inscEst }},
+			estabelecida na cidade de {{ prestador.endereco.cidade }}, estado de {{ prestador.endereco.estado }}, situada a {{ prestador.endereco.logradouro }}, {{ prestador.endereco.numero }}, {{ prestador.endereco.bairro }}, CEP {{ prestador.endereco.cep }}. <br/>
+			Telefones: {{ prestador.telefonesToString() }} <br/><br>
+
+			O (a) contratante:
+			</p>
+
+			<p>
+			Sr(a) <span class="dados">{{ formModel.nome }}</span> portador(a) dos documentos
+
+			<span id="showDadosFisicos" ng-show="tipoPessoa.modo == 'fisica'">
+				RG <span class="dados">{{ formModel.rg }}</span> e do CPF <span class="dados">{{ formModel.cpf }}</span>,
+			</span>
+
+			<span id="showDadosJuridicos" ng-show="tipoPessoa.modo == 'juridica'">
+				CNPJ <span class="dados">{{ formModel.cnpj }}</span> e da Ins. Est. <span class="dados">{{ formModel.inscEst }}</span>,
+			</span>
+
+			<br>
+			Morador(a) do endereço:  <span class="dados">{{ formModel.endereco.logradouro }}</span>, nº <span class="dados">{{ formModel.endereco.numero }}</span>, bairro <span class="dados">{{ formModel.endereco.bairro }}</span>, cidade de <span class="dados">{{ formModel.endereco.cidade }}</span>. <br>
+			Telefone para contato: <span class="dados">{{ formModel.telefone }}</span>.
+			</p>
+
+			<p><strong>Cláusula Primeira</strong> - A contratada prestará os serviços:</p>
+			<ul class="list-group">
+				<li class="list-group-item" ng-repeat="servico in formModel.servicos">
+					{{ servico.descricao }}
+				</li>
+			</ul>
+
+			<p><strong>Cláusula Segunda</strong>  - O contrato será de <span class="dados">{{ dataAtual | date: 'dd/MM/yyyy' }}</span> a <span class="dados">{{ formModel.dataEvento | date: 'dd/MM/yyyy' }}</span> </p>
+			<p><strong>Cláusula Terceira</strong> - O valor dos serviços será de <span class="dados">{{ formModel.valor | currency }}</span> </p>
+			<p><strong>Cláusula Quarta</strong>   - Havendo desistência do contratante pagará, multa de 50% dos serviços contratados. </p>
+			<p><strong>Cláusula Quinta</strong>   - O contratante se obriga a pagar todos os serviços á contratada até 15 dias antes do evento contratado. </p>
+			<p><strong>Cláusula Sexta</strong>    - O contratante se obriga a reembolsar ao contratado por possíveis danos de materiais ou bolos cenográficos: <span class="dados">{{ formModel.multaDestruicao | currency }}</span></p>
+
+			<p>
+			E, por estarem assim, juntos e contratados, de pleno acordo, assinam o presente “INSTRUMENTO DE PRESTAÇÃO DE SERVIÇOS”, em 2 vias de igual teor.
+			</p>
+
+			<br>
+			<p>São Carlos-SP, <span class="dados">{{ dataAtual | date: 'dd' }}</span> de <span class="dados">{{ dataAtual | date: 'MMMM'}} </span> de <span class="dados">{{ dataAtual | date: 'yyyy' }}</span>.
+			</p>
+			<p>Assinatura da contratada:  _________________________________</p>
+			<p>Assinatura da contratante: _________________________________</p>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="lib/angular/angular.min.js"></script>
+	<script type="text/javascript" src="lib/angular-locale-pt-br/angular-locale_pt-br.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/value/configValueRF.js"></script>
+	<script type="text/javascript" src="js/services/prestadorAPIService.js"></script>
+	<script type="text/javascript" src="js/controllers/geradorContratoCtrl.js"></script>
+</body>
+</html>
